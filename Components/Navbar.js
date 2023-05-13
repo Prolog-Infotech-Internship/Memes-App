@@ -1,9 +1,18 @@
-import React from 'react'
-import {Flex,Box,chakra, HStack, VStack, Button,IconButton} from '@chakra-ui/react'
-import { useColorModeValue } from '@chakra-ui/react';
-import { useDisclosure } from '@chakra-ui/react';
-import { AiOutlineClose } from 'react-icons/ai';
-import { AiOutlineMenu } from 'react-icons/ai';
+import React from "react";
+import {
+  Flex,
+  Box,
+  chakra,
+  HStack,
+  VStack,
+  Button,
+  IconButton,
+} from "@chakra-ui/react";
+import { useColorModeValue } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
+import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
+import Link from "next/link";
 
 const Navbar = () => {
   const bg = useColorModeValue("white", "gray.800");
@@ -11,7 +20,7 @@ const Navbar = () => {
   return (
     <React.Fragment>
       <chakra.header
-        position="fixed"
+        position="relative"
         bg={bg}
         w="full"
         px={{
@@ -46,10 +55,10 @@ const Navbar = () => {
                 md: "inline-flex",
               }}
             >
-              <Button variant="ghost">Home</Button>
-              <Button variant="ghost">Create Meme</Button>
-              <Button variant="ghost">Profile</Button>
-              <Button variant="ghost">Sign in</Button>
+              <Link href="/posts"><Button variant="ghost">Home</Button></Link>
+              <Link href="/creatememe"><Button variant="ghost">Create Meme</Button></Link>
+              <Link href="/profile"><Button variant="ghost">Profile</Button></Link>
+              <Link href=""><Button variant="ghost">Sign in</Button></Link>
             </HStack>
             {/* <Button colorScheme="brand" size="sm">
               Get Started
@@ -97,15 +106,21 @@ const Navbar = () => {
                   onClick={mobileNav.onClose}
                 />
 
-                <Button w="full" variant="ghost">
-                  Home
-                </Button>
-                <Button w="full" variant="ghost">
-                  Create Meme
-                </Button>
-                <Button w="full" variant="ghost">
-                  Profile
-                </Button>
+                <Link href="/posts">
+                  <Button w="full" variant="ghost">
+                    Home
+                  </Button>
+                </Link>
+                <Link href="/creatememe">
+                  <Button w="full" variant="ghost">
+                    Create Meme
+                  </Button>
+                </Link>
+                <Link href="/profile">
+                  <Button w="full" variant="ghost">
+                    Profile
+                  </Button>
+                </Link>
                 <Button w="full" variant="ghost">
                   Sign in
                 </Button>
