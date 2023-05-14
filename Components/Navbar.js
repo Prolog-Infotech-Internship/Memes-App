@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   Flex,
   Box,
@@ -7,19 +8,27 @@ import {
   VStack,
   Button,
   IconButton,
+  SwitchIcon,
 } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineMenu } from "react-icons/ai";
-import Link from "next/link";
+import { useColorMode } from "@chakra-ui/react";
+import {FaMoon} from "react-icons/fa";
+import {FaSun} from "react-icons/fa";
+
 
 const Navbar = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
   const bg = useColorModeValue("white", "gray.800");
+  const text = useColorModeValue("dark", "light");
+  const { toggleColorMode: toggleMode } = useColorMode();
   const mobileNav = useDisclosure();
   return (
     <React.Fragment>
       <chakra.header
+        zIndex={1}
         position="relative"
         bg={bg}
         w="full"
@@ -37,10 +46,7 @@ const Navbar = () => {
               title="Choc Home Page"
               display="flex"
               alignItems="center"
-            >
-              {/* <Logo />
-              <VisuallyHidden>Choc</VisuallyHidden> */}
-            </chakra.a>
+            ></chakra.a>
             <chakra.h1 fontSize="xl" fontWeight="medium" ml="2">
               Choc
             </chakra.h1>
@@ -55,14 +61,22 @@ const Navbar = () => {
                 md: "inline-flex",
               }}
             >
-              <Link href="/posts"><Button variant="ghost">Home</Button></Link>
-              <Link href="/creatememe"><Button variant="ghost">Create Meme</Button></Link>
-              <Link href="/profile"><Button variant="ghost">Profile</Button></Link>
-              <Link href=""><Button variant="ghost">Sign in</Button></Link>
+              <Link href="/posts">
+                <Button variant="ghost">Home</Button>
+              </Link>
+              <Link href="/creatememe">
+                <Button variant="ghost">Create Meme</Button>
+              </Link>
+              <Link href="/profile">
+                <Button variant="ghost">Profile</Button>
+              </Link>
+              <Link href="">
+                <Button variant="ghost">Sign in</Button>
+              </Link>
+              <Button variant="ghost" onClick={toggleColorMode}>
+                {colorMode === "light" ? <FaMoon/> : <FaSun/>}
+              </Button>
             </HStack>
-            {/* <Button colorScheme="brand" size="sm">
-              Get Started
-            </Button> */}
             <Box
               display={{
                 base: "inline-flex",
@@ -100,11 +114,13 @@ const Navbar = () => {
                 rounded="sm"
                 shadow="sm"
               >
+                <Button w="full" variant="ghost">
                 <AiOutlineClose
                   size={25}
                   aria-label="Close menu"
                   onClick={mobileNav.onClose}
                 />
+                </Button>
 
                 <Link href="/posts">
                   <Button w="full" variant="ghost">
@@ -124,6 +140,22 @@ const Navbar = () => {
                 <Button w="full" variant="ghost">
                   Sign in
                 </Button>
+                {/* <IconButton
+                  size="md"
+                  fontSize="lg"
+                  aria-label={`Switch to ${text} mode`}
+                  variant="ghost"
+                  color="current"
+                  ml={{
+                    base: "0",
+                    md: "3",
+                  }}
+                  onClick={toggleMode}
+                  icon={<SwitchIcon />}
+                /> */}
+                <Button variant="ghost" onClick={toggleColorMode}>
+                {colorMode === "light" ? <FaMoon/> : <FaSun/>}
+              </Button>
               </VStack>
             </Box>
           </HStack>

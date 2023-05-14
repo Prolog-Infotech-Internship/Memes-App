@@ -1,4 +1,3 @@
-
 import React from "react";
 import {Flex,Box,chakra, Link, Image,CardFooter,Button,Card} from '@chakra-ui/react'
 import { BiLike } from "react-icons/bi";
