@@ -1,7 +1,11 @@
-import React from "react";
-import {Flex,Box,chakra, Link, Image} from '@chakra-ui/react'
 
-const Card = () => {
+import React from "react";
+import {Flex,Box,chakra, Link, Image,CardFooter,Button,Card} from '@chakra-ui/react'
+import { BiLike } from "react-icons/bi";
+import { BiChat } from "react-icons/bi";
+import { BiShare } from "react-icons/bi";
+
+const PostCard = () => {
   return (
     <div>
       <Flex
@@ -16,6 +20,7 @@ const Card = () => {
         alignItems="center"
         justifyContent="center"
       >
+        <Card maxW="lg">
         <Box
           mx="auto"
           rounded="lg"
@@ -111,11 +116,31 @@ const Card = () => {
                 </chakra.span>
               </Flex>
             </Box>
+            <CardFooter
+          justify="space-between"
+          flexWrap="wrap"
+          sx={{
+            "& > button": {
+              minW: "136px",
+            },
+          }}
+        >
+          <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
+            Like
+          </Button>
+          <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
+            Comment
+          </Button>
+          <Button flex="1" variant="ghost" leftIcon={<BiShare />}>
+            Share
+          </Button>
+        </CardFooter>
           </Box>
         </Box>
+        </Card>
       </Flex>
     </div>
   );
 };
 
-export default Card
+export default PostCard
