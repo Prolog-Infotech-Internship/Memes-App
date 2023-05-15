@@ -3,40 +3,37 @@ import {
   Card,
   ChakraProvider,
   Input,
-  Stack,
   Textarea,
   Flex,
   CardBody,
   FormLabel,
-  Button
+  Button,
 } from "@chakra-ui/react";
 import Navbar from "../Components/Navbar";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const uploadmeme = () => {
-
   const [formData, setFormData] = useState({
     image: "",
     description: "",
     name: "",
     date: "",
-  });
+});
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    const currentDate = new Date().toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+
+    setFormData((prevFormData) => ({ ...prevFormData, date: currentDate }));
   };
 
   const handleSubmit = (e) => {
-    const currentDate = new Date().toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
-    // setFormData({ ...formData, date: currentDate });
-    setFormData((prevFormData) => ({ ...prevFormData, date: currentDate }));
-
     e.preventDefault();
     console.log(formData);
     setFormData({
@@ -104,16 +101,10 @@ const uploadmeme = () => {
                   />
                 </div>
                 <div>
-                  {/* <FormLabel htmlFor="date">Date:</FormLabel>
-                  <input
-                    type="date"
-                    id="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                  /> */}
                 </div>
-                <Button marginTop={4} colorScheme='blue' type="submit">Submit</Button>
+                <Button marginTop={4} colorScheme="blue" type="submit">
+                  Submit
+                </Button>
               </form>
             </CardBody>
           </Card>

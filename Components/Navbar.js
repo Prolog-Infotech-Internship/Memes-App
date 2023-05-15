@@ -48,7 +48,7 @@ const Navbar = () => {
               alignItems="center"
             ></chakra.a>
             <chakra.h1 fontSize="xl" fontWeight="medium" ml="2">
-              Choc
+              MemesApp
             </chakra.h1>
           </Flex>
           <HStack display="flex" alignItems="center" spacing={1}>
