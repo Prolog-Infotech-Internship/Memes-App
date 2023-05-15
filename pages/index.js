@@ -6,6 +6,7 @@ import Navbar from '../Components/Navbar';
 export default function Home() {
   return (
     <ChakraProvider>
+      <title>Memes App</title>
     <Navbar/>
   </ChakraProvider>
   )

@@ -64,6 +64,9 @@ const Navbar = () => {
               <Link href="/posts">
                 <Button variant="ghost">Home</Button>
               </Link>
+              <Link href="/uploadmeme">
+                <Button variant="ghost">Upload Meme</Button>
+              </Link>
               <Link href="/creatememe">
                 <Button variant="ghost">Create Meme</Button>
               </Link>
@@ -125,6 +128,11 @@ const Navbar = () => {
                 <Link href="/posts">
                   <Button w="full" variant="ghost">
                     Home
+                  </Button>
+                </Link>
+                <Link href="/uploadmeme">
+                  <Button w="full" variant="ghost">
+                    Upload Meme
                   </Button>
                 </Link>
                 <Link href="/creatememe">
