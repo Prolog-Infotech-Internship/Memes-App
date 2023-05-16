@@ -15,11 +15,10 @@ import { useDisclosure } from "@chakra-ui/react";
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useColorMode } from "@chakra-ui/react";
-import {FaMoon} from "react-icons/fa";
-import {FaSun} from "react-icons/fa";
+import { FaMoon } from "react-icons/fa";
+import { FaSun } from "react-icons/fa";
 
-
-const Navbar = () => {
+const Navbar = ({position}) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = useColorModeValue("white", "gray.800");
   const text = useColorModeValue("dark", "light");
@@ -29,7 +28,7 @@ const Navbar = () => {
     <React.Fragment>
       <chakra.header
         zIndex={1}
-        position="relative"
+        position={position}
         bg={bg}
         w="full"
         px={{
@@ -73,11 +72,11 @@ const Navbar = () => {
               <Link href="/profile">
                 <Button variant="ghost">Profile</Button>
               </Link>
-              <Link href="">
+              <Link href="/signin">
                 <Button variant="ghost">Sign in</Button>
               </Link>
               <Button variant="ghost" onClick={toggleColorMode}>
-                {colorMode === "light" ? <FaMoon/> : <FaSun/>}
+                {colorMode === "light" ? <FaMoon /> : <FaSun />}
               </Button>
             </HStack>
             <Box
@@ -118,11 +117,11 @@ const Navbar = () => {
                 shadow="sm"
               >
                 <Button w="full" variant="ghost">
-                <AiOutlineClose
-                  size={25}
-                  aria-label="Close menu"
-                  onClick={mobileNav.onClose}
-                />
+                  <AiOutlineClose
+                    size={25}
+                    aria-label="Close menu"
+                    onClick={mobileNav.onClose}
+                  />
                 </Button>
 
                 <Link href="/posts">
@@ -145,9 +144,11 @@ const Navbar = () => {
                     Profile
                   </Button>
                 </Link>
-                <Button w="full" variant="ghost">
-                  Sign in
-                </Button>
+                <Link href="/signin">
+                  <Button w="full" variant="ghost">
+                    Sign in
+                  </Button>
+                </Link>
                 {/* <IconButton
                   size="md"
                   fontSize="lg"
@@ -162,8 +163,8 @@ const Navbar = () => {
                   icon={<SwitchIcon />}
                 /> */}
                 <Button variant="ghost" onClick={toggleColorMode}>
-                {colorMode === "light" ? <FaMoon/> : <FaSun/>}
-              </Button>
+                  {colorMode === "light" ? <FaMoon /> : <FaSun />}
+                </Button>
               </VStack>
             </Box>
           </HStack>
