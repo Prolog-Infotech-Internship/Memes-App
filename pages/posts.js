@@ -1,14 +1,15 @@
-import React from 'react'
-import PostCard from '../Components/PostCard'
-import Navbar from '../Components/Navbar'
-import { ChakraProvider } from '@chakra-ui/react'
-import MemeCard from '../Components/MemeCard'
+import React from "react";
+import PostCard from "../Components/PostCard";
+import Navbar from "../Components/Navbar";
+import { ChakraProvider } from "@chakra-ui/react";
+import MemeCard from "../Components/MemeCard";
+import Head from "next/head";
 
 const Posts = () => {
   return (
     <div>
     <ChakraProvider>
-    <Navbar position="sticky" />
+    <Navbar/>
     {/* <Card/> */}
     <MemeCard/>
     <MemeCard/>
@@ -20,7 +21,7 @@ const Posts = () => {
     <PostCard/>
   </ChakraProvider>
     </div>
-  )
-}
+  );
+};
 
-export default Posts
+export default Posts;
