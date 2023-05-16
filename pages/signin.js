@@ -66,7 +66,11 @@ const signin = () => {
                       pointerEvents="none"
                       children={<CFaUserAlt color="gray.300" />}
                     />
-                    <Input type="email" placeholder="email address" />
+                    <Input
+                      variant="filled"
+                      type="email"
+                      placeholder="Email address"
+                    />
                   </InputGroup>
                 </FormControl>
                 <FormControl>
@@ -77,6 +81,7 @@ const signin = () => {
                       children={<CFaLock color="gray.300" />}
                     />
                     <Input
+                      variant="filled"
                       type={showPassword ? "text" : "password"}
                       placeholder="Password"
                     />
