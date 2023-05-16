@@ -8,7 +8,7 @@ const Posts = () => {
   return (
     <div>
     <ChakraProvider>
-    <Navbar/>
+    <Navbar position="sticky" />
     {/* <Card/> */}
     <MemeCard/>
     <MemeCard/>
