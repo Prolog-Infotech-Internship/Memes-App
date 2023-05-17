@@ -8,6 +8,9 @@ import Head from "next/head";
 const Posts = () => {
   return (
     <div>
+      <Head>
+        <title>Memes App</title>
+      </Head>
     <ChakraProvider>
     <Navbar/>
     {/* <Card/> */}

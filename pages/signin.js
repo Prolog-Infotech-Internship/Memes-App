@@ -19,6 +19,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
+import Head from "next/head";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -29,6 +30,9 @@ const signin = () => {
   const handleShowClick = () => setShowPassword(!showPassword);
   return (
     <ChakraProvider>
+      <Head>
+        <title>Memes App</title>
+      </Head>
       <Navbar position="fixed" />
       <Flex
         flexDirection="column"

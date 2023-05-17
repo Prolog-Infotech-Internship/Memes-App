@@ -10,27 +10,32 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Navbar from "../Components/Navbar";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Head from "next/head";
 
 const uploadmeme = () => {
   const [formData, setFormData] = useState({
-    image: "",
+    image: null,
     description: "",
     name: "",
     date: "",
-});
+  });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    const currentDate = new Date().toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-
-    setFormData((prevFormData) => ({ ...prevFormData, date: currentDate }));
+    const { name, value, files } = e.target;
+    if (name === "image" && files && files.length > 0) {
+      setFormData({ ...formData, [name]: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+      const currentDate = new Date().toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+      setFormData((prevFormData) => ({ ...prevFormData, date: currentDate }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -45,6 +50,9 @@ const uploadmeme = () => {
   };
   return (
     <div>
+      <Head>
+        <title>Memes App</title>
+      </Head>
       <ChakraProvider>
         <Navbar />
         <Flex
@@ -67,11 +75,10 @@ const uploadmeme = () => {
                   <Form.Group controlId="formFileLg" className="mb-3">
                     <Form.Control
                       variant="secondary"
+                      type="file"
                       id="image"
                       name="image"
-                      value={formData.image}
                       onChange={handleChange}
-                      type="file"
                       size="lg"
                     />
                   </Form.Group>
@@ -100,8 +107,7 @@ const uploadmeme = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div>
-                </div>
+                <div></div>
                 <Button marginTop={4} colorScheme="blue" type="submit">
                   Submit
                 </Button>
