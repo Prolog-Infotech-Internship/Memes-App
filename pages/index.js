@@ -4,12 +4,16 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Navbar from "../Components/Navbar";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Navbar2 from "../Components/Navbar2";
+
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
-
     if (!localStorage.getItem("token")) {
       router.push('/signin')
+    }
+    if (localStorage.getItem("token")) {
+      router.push('/posts')
     }
   }, [])
   return (
@@ -18,7 +22,7 @@ export default function Home() {
         <title>Memes App</title>
       </Head>
       <ChakraProvider>
-        <Navbar />
+        <Navbar/>
       </ChakraProvider>
     </>
   );

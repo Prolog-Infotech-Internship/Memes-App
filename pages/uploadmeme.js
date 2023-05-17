@@ -15,8 +15,10 @@ import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Navbar2 from "../Components/Navbar2";
 
 const uploadmeme = () => {
+  const [signined, setsignined] = useState(true);
   const router = useRouter();
   const [formData, setFormData] = useState({
     image: null,
@@ -28,7 +30,11 @@ const uploadmeme = () => {
   useEffect(() => {
 
     if (!localStorage.getItem("token")) {
+      setsignined(false);
       router.push('/signin')
+    }
+    else{
+      setsignined(true);
     }
   }, [])
   
@@ -63,7 +69,7 @@ const uploadmeme = () => {
         <title>Memes App</title>
       </Head>
       <ChakraProvider>
-        <Navbar />
+      {signined ? <Navbar2 /> : <Navbar />}
         <Flex
           mt={0}
           bg="#edf3f8"
