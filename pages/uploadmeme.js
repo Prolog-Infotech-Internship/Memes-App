@@ -14,8 +14,10 @@ import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const uploadmeme = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     image: null,
     description: "",
@@ -23,6 +25,13 @@ const uploadmeme = () => {
     date: "",
   });
 
+  useEffect(() => {
+
+    if (!localStorage.getItem("token")) {
+      router.push('/signin')
+    }
+  }, [])
+  
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "image" && files && files.length > 0) {

@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../Components/Navbar";
 import { ChakraProvider } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Flex,
   Grid,
@@ -21,20 +21,98 @@ import {
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import Head from "next/head";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router'
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 const signup = () => {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowClick = () => setShowPassword(!showPassword);
+
+  const [signUpFormData, setSignUpFormData] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    password: "",
+  });
+
+  useEffect(() => {
+
+    if (localStorage.getItem("token")) {
+      router.push('/posts')
+    }
+  }, [])
+
+
+  const handleChange = (e) => {
+    setSignUpFormData({ ...signUpFormData, [e.target.name]: e.target.value });
+  };
+
+
+  const handleSignUp = async (e)=>{
+    e.preventDefault();
+
+    const fullName = signUpFormData.fname+signUpFormData.lname;
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKENT_HOST}/api/auth/createuser`, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: fullName, email: signUpFormData.email, password: signUpFormData.password }) // body datLink type must match "Content-Type" header
+    });
+
+
+    const json = await response.json()
+
+    console.log(json)
+
+    if (json.success) {
+      localStorage.setItem('token', json.authToken)
+      toast.success("User Created Successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      router.push('/posts')
+    } else {
+      toast.error(json.error, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
   return (
     <ChakraProvider>
       <Head>
         <title>Memes App</title>
       </Head>
       <Navbar position="fixed" />
+      <ToastContainer
+                position="top-right"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
       <Flex
         flexDirection="column"
         width="100wh"
@@ -56,7 +134,7 @@ const signup = () => {
           <Avatar bg="teal.500" />
           <Heading color="teal.400">Welcome</Heading>
           <Box minW={{ base: "90%", md: "468px" }}>
-            <form>
+          <form onSubmit={handleSignUp}>
               <Stack
                 spacing={4}
                 p="1rem"
@@ -68,8 +146,8 @@ const signup = () => {
               >
                 <Grid templateColumns='repeat(2, 1fr)' gap={4}>
                 {/* <Flex minWidth="12" alignItems="center" gap="2"> */}
-                  <Input variant="filled" placeholder="First Name" />
-                  <Input variant="filled" placeholder="Last Name" />
+                  <Input variant="filled" id="fname" name="fname" value={signUpFormData.fname} onChange={handleChange} placeholder="First Name" />
+                  <Input variant="filled" id="lname" name="lname" value={signUpFormData.lname} onChange={handleChange} placeholder="Last Name" />
                 {/* </Flex> */}
                 </Grid>
                 <FormControl>
@@ -80,7 +158,7 @@ const signup = () => {
                     />
                     <Input
                       variant="filled"
-                      type="email"
+                      type="email" id="email" name="email" value={signUpFormData.email} onChange={handleChange}
                       placeholder="email address"
                     />
                   </InputGroup>
@@ -95,7 +173,7 @@ const signup = () => {
                     <Input
                       variant="filled"
                       type={showPassword ? "text" : "password"}
-                      placeholder="Password"
+                      placeholder="Password" id="password" name="password" value={signUpFormData.password} onChange={handleChange}
                     />
                     <InputRightElement width="4.5rem">
                       <Button h="1.75rem" size="sm" onClick={handleShowClick}>
