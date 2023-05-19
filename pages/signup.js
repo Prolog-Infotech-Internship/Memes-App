@@ -59,7 +59,7 @@ const signup = () => {
 
     const fullName = signUpFormData.fname+signUpFormData.lname;
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKENT_HOST}/api/auth/createuser`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_HOST}/api/auth/createuser`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'
