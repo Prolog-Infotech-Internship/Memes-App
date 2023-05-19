@@ -12,9 +12,9 @@ import { useState } from "react";
 const Posts = () => {
   const [signined, setsignined] = useState(true);
   const router = useRouter();
-  useEffect(() => {
-
-    if (!localStorage.getItem("token")) {
+  useEffect(async () => {
+    const token = await localStorage.getItem("token");
+    if (!token) {
       router.push('/signin')
     }
   }, [])

@@ -27,7 +27,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-const signin = () => {
+const SignIn = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,9 +36,9 @@ const signin = () => {
     password: "",
   });
 
-  useEffect(() => {
-
-    if (localStorage.getItem("token")) {
+  useEffect(async () => {
+    const token = await localStorage.getItem("token");
+    if (token) {
       router.push('/posts')
     }
   }, [])
@@ -194,4 +194,4 @@ const signin = () => {
   );
 };
 
-export default signin;
+export default SignIn;

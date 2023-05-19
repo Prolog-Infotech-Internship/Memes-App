@@ -41,8 +41,8 @@ const signup = () => {
     password: "",
   });
 
-  useEffect(() => {
-
+  useEffect(async () => {
+    const token = await localStorage.getItem("token");
     if (localStorage.getItem("token")) {
       router.push('/posts')
     }

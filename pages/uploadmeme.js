@@ -17,7 +17,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar2 from "../Components/Navbar2";
 
-const uploadmeme = () => {
+const Uploadmeme = () => {
   const [signined, setsignined] = useState(true);
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -27,8 +27,9 @@ const uploadmeme = () => {
     date: "",
   });
 
-  useEffect(() => {
-    if (!localStorage.getItem("token")) {
+  useEffect(async () => {
+    const token = await localStorage.getItem("token");
+    if (!token) {
       setsignined(false);
       router.push('/signin')
     }
@@ -134,4 +135,4 @@ const uploadmeme = () => {
   );
 };
 
-export default uploadmeme;
+export default Uploadmeme;

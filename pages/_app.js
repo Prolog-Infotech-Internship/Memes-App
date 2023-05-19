@@ -9,8 +9,9 @@ import { useRouter } from "next/router";
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [signined, setsignined] = useState(true);
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
+  useEffect(async () => {
+    const token = await localStorage.getItem("token");
+    if (token) {
       setsignined(true);
     }
   }, []);

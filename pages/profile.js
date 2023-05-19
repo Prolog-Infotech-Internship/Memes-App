@@ -7,12 +7,12 @@ import { useState, useEffect } from "react";
 import Navbar2 from "../Components/Navbar2";
 import { Button, ButtonGroup } from '@chakra-ui/react'
 
-const profile = () => {
+const Profile = () => {
   const [signined, setsignined] = useState(true);
   const router = useRouter();
-  useEffect(() => {
-
-    if (!localStorage.getItem("token")) {
+  useEffect(async () => {
+    const token = await localStorage.getItem("token");
+    if (!token) {
       setsignined(false);
       router.push('/signin')
     }
@@ -41,4 +41,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default Profile;
