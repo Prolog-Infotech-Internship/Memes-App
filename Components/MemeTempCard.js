@@ -1,45 +1,31 @@
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Stack,
-  Heading,
-  Text,
-  Button,
-  Image,
-  Divider,
-  ButtonGroup,
-  Box,
-} from "@chakra-ui/react";
+import { Card, Center, Button, Image, Box } from "@chakra-ui/react";
 
-const MemeTempCard = ({data}) => {
+const MemeTempCard = ({ meme }) => {
   return (
-      <Card maxW="sm" borderColor='gray.800' >
-        <CardBody>
-          <Image
-            src={data.url}
-            borderRadius="lg"
-          />
-          <Stack mt="6" spacing="3">
-            <Heading size="md">{data.name}</Heading>
-            {/* <Text>
-            This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design
-            with a sprinkle of vintage design.
-          </Text> */}
-          </Stack>
-        </CardBody>
-        <Divider />
-        <CardFooter>
-          <ButtonGroup spacing="2">
-            <Button variant="solid" colorScheme="blue">
-              Edit 
-            </Button>
-          </ButtonGroup>
-        </CardFooter>
+    <Center key={meme.id}>
+      <Card
+        maxW="sm"
+        shadow="2xl"
+        borderRadius="lg"
+        border={null}
+        overflow="hidden"
+        height="480px"
+        width="350px"
+        marginBottom={10}
+      >
+        <Image src={meme.url} alt={meme.name} height="350px" width="350px" />
+        <Box pt="3" paddingInline={6} height="150px">
+          <Box fontWeight="bold" fontSize="xl" mb={2} noOfLines={2}>
+            {meme.name}
+          </Box>
+          {/* <Divider margin={3} /> */}
+          <Button variant="solid" colorScheme="teal">
+            Edit
+          </Button>
+        </Box>
       </Card>
+    </Center>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Center, ChakraProvider, Stack, Flex } from "@chakra-ui/react";
+import { ChakraProvider, Stack, SimpleGrid } from "@chakra-ui/react";
 import Navbar from "../Components/Navbar";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -38,6 +38,7 @@ const Creatememe = () => {
   return (
     <div>
       <Stack
+        p={10}
         bg="#edf3f8"
         _dark={{
           bg: "#3e3e3e",
@@ -50,17 +51,22 @@ const Creatememe = () => {
         </Head>
         <ChakraProvider>
           {/* {signined ? <Navbar2 /> : <Navbar />} */}
-          <Heading marginTop={10} textAlign="Center" size="lg">
+          {/* <Heading marginTop={10} textAlign="Center" size="lg">
             Memes
-          </Heading>
+          </Heading> */}
           <div>
-            <Stack marginInline={20}>
+            {/* <Stack marginInline={20} marginTop={10}>
               <Grid templateColumns="repeat(3, 1fr)" gap={3}>
                 {memes.map((meme) => (
                   <MemeTempCard key={meme.id} data={meme} />
                 ))}
               </Grid>
-            </Stack>
+            </Stack> */}
+            <SimpleGrid columns={[1, 2, 3]} spacing={4}>
+              {memes.map((meme) => (
+                <MemeTempCard key={meme.id} meme={meme} />
+              ))}
+            </SimpleGrid>
           </div>
         </ChakraProvider>
       </Stack>
