@@ -10,9 +10,7 @@ export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [signined, setsignined] = useState(true);
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      router.push("/signin");
-    } else {
+    if (localStorage.getItem("token")) {
       setsignined(true);
     }
   }, []);

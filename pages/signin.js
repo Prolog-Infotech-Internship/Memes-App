@@ -185,7 +185,7 @@ const signin = () => {
         </Stack>
         <Box>
           New to us?{" "}
-          <Link color="teal.500" href="/signup">
+          <Link href="/signup" color="teal.500">
             Sign Up
           </Link>
         </Box>
