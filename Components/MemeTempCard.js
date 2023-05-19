@@ -14,7 +14,7 @@ const MemeTempCard = ({ meme }) => {
         width="350px"
         marginBottom={10}
       >
-        <Image src={meme.url} alt={meme.name} height="350px" width="350px" />
+        <Image src="https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg" alt={meme.name} height="350px" width="350px" />
         <Box pt="3" paddingInline={6} height="150px">
           <Box fontWeight="bold" fontSize="xl" mb={2} noOfLines={2}>
             {meme.name}

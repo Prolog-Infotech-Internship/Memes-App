@@ -27,9 +27,8 @@ const Uploadmeme = () => {
     date: "",
   });
 
-  useEffect(async () => {
-    const token = await localStorage.getItem("token");
-    if (!token) {
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
       setsignined(false);
       router.push('/signin')
     }
@@ -87,7 +86,7 @@ const Uploadmeme = () => {
               <form onSubmit={handleSubmit}>
                 <div>
                   <FormLabel htmlFor="description">Select Meme:</FormLabel>
-                  <Form.Group controlId="formFileLg" className="mb-3">
+                  <Form.Group className="mb-3">
                     <Form.Control
                       variant="secondary"
                       type="file"

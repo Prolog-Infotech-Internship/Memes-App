@@ -11,13 +11,12 @@ import axios from "axios";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 
-const Creatememe = () => {
+const Creatememe = ({token}) => {
   const [templet, settemplet] = useState([]);
   const [memes, setMemes] = useState([]);
   const [signined, setsignined] = useState(true);
   const router = useRouter();
-  useEffect(async () => {
-    const token = await localStorage.getItem("token");
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("https://api.imgflip.com/get_memes");
@@ -27,14 +26,17 @@ const Creatememe = () => {
         console.error(error);
       }
     };
-    if (!token) {
+    if (!localStorage.getItem("token")) {
       setsignined(false);
       router.push("/signin");
     } else {
       setsignined(true);
     }
     fetchData();
+    
   }, []);
+  
+  console.log(token)
   return (
     <div>
       <Stack

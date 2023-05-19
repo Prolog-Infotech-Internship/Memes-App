@@ -10,9 +10,9 @@ import { Button, ButtonGroup } from '@chakra-ui/react'
 const Profile = () => {
   const [signined, setsignined] = useState(true);
   const router = useRouter();
-  useEffect(async () => {
-    const token = await localStorage.getItem("token");
-    if (!token) {
+  useEffect(() => {
+
+    if (!localStorage.getItem("token")) {
       setsignined(false);
       router.push('/signin')
     }

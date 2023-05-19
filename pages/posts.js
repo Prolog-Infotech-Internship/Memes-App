@@ -12,9 +12,9 @@ import { useState } from "react";
 const Posts = () => {
   const [signined, setsignined] = useState(true);
   const router = useRouter();
-  useEffect(async () => {
-    const token = await localStorage.getItem("token");
-    if (!token) {
+  useEffect(() => {
+
+    if (!localStorage.getItem("token")) {
       router.push('/signin')
     }
   }, [])
@@ -28,6 +28,10 @@ const Posts = () => {
     {/* <Card/> */}
     <MemeCard/>
     <MemeCard/>
+    <MemeCard/>
+    <MemeCard/>
+    <MemeCard/>
+    <PostCard/>
     <PostCard/>
     <PostCard/>
   </ChakraProvider>

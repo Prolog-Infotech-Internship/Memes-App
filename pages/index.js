@@ -8,9 +8,8 @@ import Navbar2 from "../Components/Navbar2";
 
 export default function Home() {
   const router = useRouter();
-  useEffect(async() => {
-    const token = await localStorage.getItem("token");
-    if (!token) {
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
       router.push('/signin')
     }
     // if (localStorage.getItem("token")) {

@@ -27,7 +27,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-const SignIn = () => {
+const Signin = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,9 +36,9 @@ const SignIn = () => {
     password: "",
   });
 
-  useEffect(async () => {
-    const token = await localStorage.getItem("token");
-    if (token) {
+  useEffect(() => {
+
+    if (localStorage.getItem("token")) {
       router.push('/posts')
     }
   }, [])
@@ -70,10 +70,7 @@ const SignIn = () => {
         draggable: true,
         progress: undefined,
       });
-      
-      setInterval(() => {
-        router.push('/posts')
-      }, 5000);
+      router.push('/posts')
     } else {
       toast.error("Invalid Credentials", {
         position: "top-right",
@@ -194,4 +191,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Signin;

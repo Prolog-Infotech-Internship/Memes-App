@@ -28,7 +28,7 @@ import { useRouter } from 'next/router'
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-const signup = () => {
+const Signup = () => {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false);
 
@@ -41,8 +41,8 @@ const signup = () => {
     password: "",
   });
 
-  useEffect(async () => {
-    const token = await localStorage.getItem("token");
+  useEffect(() => {
+
     if (localStorage.getItem("token")) {
       router.push('/posts')
     }
@@ -206,4 +206,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Signup;
