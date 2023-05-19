@@ -26,7 +26,7 @@ const creatememe = () => {
         <title>Memes App</title>
       </Head>
       <ChakraProvider>
-      {signined ? <Navbar2 /> : <Navbar />}
+      {/* {signined ? <Navbar2 /> : <Navbar />} */}
       </ChakraProvider>
       CreateMeme
     </div>

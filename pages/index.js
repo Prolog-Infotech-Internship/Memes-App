@@ -12,9 +12,9 @@ export default function Home() {
     if (!localStorage.getItem("token")) {
       router.push('/signin')
     }
-    if (localStorage.getItem("token")) {
-      router.push('/posts')
-    }
+    // if (localStorage.getItem("token")) {
+    //   router.push('/posts')
+    // }
   }, [])
   return (
     <>
@@ -22,7 +22,7 @@ export default function Home() {
         <title>Memes App</title>
       </Head>
       <ChakraProvider>
-        <Navbar/>
+        {/* <Navbar/> */}
       </ChakraProvider>
     </>
   );

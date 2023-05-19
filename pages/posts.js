@@ -24,7 +24,7 @@ const Posts = () => {
         <title>Memes App</title>
       </Head>
     <ChakraProvider>
-    {signined ? <Navbar2 /> : <Navbar />}
+    {/* {signined ? <Navbar2 /> : <Navbar />} */}
     {/* <Card/> */}
     <MemeCard/>
     <MemeCard/>

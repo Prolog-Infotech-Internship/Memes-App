@@ -31,7 +31,7 @@ const profile = () => {
       <Head>
         <title>Memes App</title>
       </Head>
-      {signined ? <Navbar2 /> : <Navbar />}
+      {/* {signined ? <Navbar2 /> : <Navbar />} */}
         Profile
 
         <Button colorScheme='blue' onClick={handleSignOut}>Sign Out</Button>

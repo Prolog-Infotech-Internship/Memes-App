@@ -101,7 +101,7 @@ const signup = () => {
       <Head>
         <title>Memes App</title>
       </Head>
-      <Navbar position="fixed" />
+      {/* <Navbar position="fixed" /> */}
       <ToastContainer
                 position="top-right"
                 autoClose={4000}

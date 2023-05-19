@@ -69,7 +69,7 @@ const uploadmeme = () => {
         <title>Memes App</title>
       </Head>
       <ChakraProvider>
-      {signined ? <Navbar2 /> : <Navbar />}
+      {/* {signined ? <Navbar2 /> : <Navbar />} */}
         <Flex
           mt={0}
           bg="#edf3f8"
