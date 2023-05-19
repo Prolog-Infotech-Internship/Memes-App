@@ -28,7 +28,6 @@ const uploadmeme = () => {
   });
 
   useEffect(() => {
-
     if (!localStorage.getItem("token")) {
       setsignined(false);
       router.push('/signin')
