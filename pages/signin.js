@@ -50,7 +50,7 @@ const signin = () => {
   const handleSignIn = async (e) =>{
     e.preventDefault();
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKENT_HOST}/api/auth/login`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_HOST}/api/auth/login`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'
