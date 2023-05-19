@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Navbar2 from "../Components/Navbar2";
+import { Button, ButtonGroup } from '@chakra-ui/react'
 
 const profile = () => {
   const [signined, setsignined] = useState(true);
@@ -19,6 +20,11 @@ const profile = () => {
       setsignined(true);
     }
   }, [])
+
+  const handleSignOut = () => {
+    localStorage.clear();
+    router.push('/signin')
+  }
   return (
     <div>
       <ChakraProvider>
@@ -27,6 +33,8 @@ const profile = () => {
       </Head>
       {signined ? <Navbar2 /> : <Navbar />}
         Profile
+
+        <Button colorScheme='blue' onClick={handleSignOut}>Sign Out</Button>
       </ChakraProvider>
       
     </div>
