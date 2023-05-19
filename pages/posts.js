@@ -28,10 +28,6 @@ const Posts = () => {
     {/* <Card/> */}
     <MemeCard/>
     <MemeCard/>
-    <MemeCard/>
-    <MemeCard/>
-    <MemeCard/>
-    <PostCard/>
     <PostCard/>
     <PostCard/>
   </ChakraProvider>
