@@ -16,27 +16,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar2 from "../Components/Navbar2";
+import axios from "axios";
 
 const Uploadmeme = () => {
   const [signined, setsignined] = useState(true);
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    image: null,
-    description: "",
-    name: "",
-    date: "",
-  });
+  const [memes, setMemes] = useState([]);
+  const [description, setDescription] = useState("");
+  const [name, setName] = useState("");
+  const [memeUrl, setMemeUrl] = useState("");
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       setsignined(false);
-      router.push('/signin')
-    }
-    else{
+      router.push("/signin");
+    } else {
       setsignined(true);
     }
-  }, [])
-  
+    getMemes();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "image" && files && files.length > 0) {
@@ -51,16 +50,38 @@ const Uploadmeme = () => {
       setFormData((prevFormData) => ({ ...prevFormData, date: currentDate }));
     }
   };
+  const getMemes = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/memes");
+      setMemes(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleLike = async (id) => {
+    try {
+      await axios.post(`http://localhost:5000/memes/${id}/like`);
+      getMemes();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    setFormData({
-      image: "",
-      description: "",
-      name: "",
-      date: "",
-    });
+    try {
+      await axios.post("http://localhost:5000/memes", {
+        name,
+        description,
+        memeUrl,
+      });
+      setName("");
+      setMemeUrl("");
+      setDescription("");
+      getMemes();
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div>
@@ -68,7 +89,7 @@ const Uploadmeme = () => {
         <title>Memes App</title>
       </Head>
       <ChakraProvider>
-      {/* {signined ? <Navbar2 /> : <Navbar />} */}
+        {/* {signined ? <Navbar2 /> : <Navbar />} */}
         <Flex
           mt={0}
           bg="#edf3f8"
@@ -84,41 +105,38 @@ const Uploadmeme = () => {
           <Card width={1000}>
             <CardBody>
               <form onSubmit={handleSubmit}>
-                <div>
                   <FormLabel htmlFor="description">Select Meme:</FormLabel>
-                  <Form.Group className="mb-3">
-                    <Form.Control
-                      variant="secondary"
-                      type="file"
-                      id="image"
-                      name="image"
-                      onChange={handleChange}
-                      size="lg"
-                    />
-                  </Form.Group>
-                </div>
+                    <Input
+                    className="mb-3"
+                      variant="filled"
+                      value={memeUrl}
+                      onChange={(e) => setMemeUrl(e.target.value)}
+                      required
+                      placeholder="Enter Meme URL"
+                      // variant="secondary"
+                      type="url"
+                      // size="sm"
+                      />
                 <div>
                   <FormLabel htmlFor="description">Description:</FormLabel>
                   <Textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
                     variant="filled"
                     placeholder="Here is a sample placeholder"
                     type="text"
-                    id="description"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
                   />
                 </div>
                 <div>
                   <FormLabel htmlFor="name">Name:</FormLabel>
                   <Input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
                     variant="filled"
                     placeholder="Enter your name"
                     type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
                   />
                 </div>
                 <div></div>

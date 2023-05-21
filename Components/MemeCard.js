@@ -19,12 +19,12 @@ import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
 import { BiChat } from "react-icons/bi";
 import { BiShare } from "react-icons/bi";
 
-const MemeCard = () => {
-    const [Like, setLike] = useState(false);
-   const handleLike =() => {
-    setLike(!Like)
-    console.log({Like})
-   }
+const MemeCard = ({ meme, handleLike }) => {
+  const [Like, setLike] = useState(false);
+  const handleLikebutton = () => {
+    setLike(!Like);
+    console.log({ Like });
+  };
   return (
     <div>
       <Flex
@@ -59,8 +59,8 @@ const MemeCard = () => {
                   />
 
                   <Box>
-                    <Heading size="sm">Segun Adebayo</Heading>
-                    <Text>Creator, Chakra UI</Text>
+                    <Heading size="sm">{meme.name}</Heading>
+                    <Text>{new Date(meme.date).toLocaleString()}</Text>
                   </Box>
                 </Flex>
                 <IconButton
@@ -72,15 +72,11 @@ const MemeCard = () => {
               </Flex>
             </CardHeader>
             <CardBody>
-              <Text>
-                With Chakra UI, I wanted to sync the speed of development with
-                the speed of design. I wanted the developer to be just as
-                excited as the designer to create a screen.
-              </Text>
+              <Text>{meme.description}</Text>
             </CardBody>
             <Image
               objectFit="cover"
-              src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+              src={meme.memeUrl}
               alt="Chakra UI"
             />
 
@@ -93,8 +89,16 @@ const MemeCard = () => {
                 },
               }}
             >
-              <Button flex="1" variant="ghost" leftIcon={Like ? <FaThumbsUp/> : <FaRegThumbsUp />} onClick={handleLike}>
-                Like
+              <Button
+                flex="1"
+                variant="ghost"
+                leftIcon={Like ? <FaThumbsUp /> : <FaRegThumbsUp />}
+                onClick={() => {
+                  handleLike(meme._id);
+                  handleLikebutton();
+                }}
+              >
+                Like {meme.likes}
               </Button>
               <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
                 Comment
