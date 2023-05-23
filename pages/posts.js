@@ -23,7 +23,7 @@ const Posts = () => {
   }, [])
   const getMemes = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/memes");
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/getmemes`);
       setMemes(response.data);
     } catch (error) {
       console.error(error);
@@ -31,7 +31,7 @@ const Posts = () => {
   };
   const handleLike = async (id) => {
     try {
-      await axios.post(`http://localhost:5000/memes/${id}/like`);
+      await axios.post(`${process.env.NEXT_PUBLIC_HOST}/memes/${id}/like`);
       getMemes();
     } catch (error) {
       console.error(error);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import {
   Card,
   ChakraProvider,
@@ -17,8 +17,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar2 from "../Components/Navbar2";
 import axios from "axios";
+import User from "../models/User";
+import mongoose from "mongoose";
 
-const Uploadmeme = () => {
+const Uploadmeme = ({username,userid}) => {
   const [signined, setsignined] = useState(true);
   const router = useRouter();
   const [memes, setMemes] = useState([]);
@@ -29,6 +31,7 @@ const Uploadmeme = () => {
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       setsignined(false);
+      
       router.push("/signin");
     } else {
       setsignined(true);
@@ -52,7 +55,8 @@ const Uploadmeme = () => {
   };
   const getMemes = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/memes");
+      await setName(username)
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/getmemes`);
       setMemes(response.data);
     } catch (error) {
       console.error(error);
@@ -60,7 +64,7 @@ const Uploadmeme = () => {
   };
   const handleLike = async (id) => {
     try {
-      await axios.post(`http://localhost:5000/memes/${id}/like`);
+      await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/likememe/${id}`);
       getMemes();
     } catch (error) {
       console.error(error);
@@ -70,8 +74,9 @@ const Uploadmeme = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/memes", {
+      await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/postmeme`, {
         name,
+        userid,
         description,
         memeUrl,
       });
@@ -105,18 +110,18 @@ const Uploadmeme = () => {
           <Card width={1000}>
             <CardBody>
               <form onSubmit={handleSubmit}>
-                  <FormLabel htmlFor="description">Select Meme:</FormLabel>
-                    <Input
-                    className="mb-3"
-                      variant="filled"
-                      value={memeUrl}
-                      onChange={(e) => setMemeUrl(e.target.value)}
-                      required
-                      placeholder="Enter Meme URL"
-                      // variant="secondary"
-                      type="url"
-                      // size="sm"
-                      />
+                <FormLabel htmlFor="description">Select Meme:</FormLabel>
+                <Input
+                  className="mb-3"
+                  variant="filled"
+                  value={memeUrl}
+                  onChange={(e) => setMemeUrl(e.target.value)}
+                  required
+                  placeholder="Enter Meme URL"
+                  // variant="secondary"
+                  type="url"
+                // size="sm"
+                />
                 <div>
                   <FormLabel htmlFor="description">Description:</FormLabel>
                   <Textarea
@@ -151,5 +156,7 @@ const Uploadmeme = () => {
     </div>
   );
 };
+
+
 
 export default Uploadmeme;

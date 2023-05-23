@@ -13,7 +13,7 @@ import {
   CardBody,
   CardFooter,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
 import { BiChat } from "react-icons/bi";
@@ -59,6 +59,7 @@ const MemeCard = ({ meme, handleLike }) => {
                   />
 
                   <Box>
+                    
                     <Heading size="sm">{meme.name}</Heading>
                     <Text>{new Date(meme.date).toLocaleString()}</Text>
                   </Box>

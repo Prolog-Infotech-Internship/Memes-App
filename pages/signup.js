@@ -57,14 +57,14 @@ const Signup = () => {
   const handleSignUp = async (e)=>{
     e.preventDefault();
 
-    const fullName = signUpFormData.fname+signUpFormData.lname;
+    const fullName = signUpFormData.fname+" "+signUpFormData.lname;
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_HOST}/api/auth/createuser`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signup`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({name: fullName, email: signUpFormData.email, password: signUpFormData.password }) // body datLink type must match "Content-Type" header
+      body: JSON.stringify({userName: fullName, email: signUpFormData.email, password: signUpFormData.password }) // body datLink type must match "Content-Type" header
     });
 
 
@@ -74,6 +74,7 @@ const Signup = () => {
 
     if (json.success) {
       localStorage.setItem('token', json.authToken)
+      localStorage.setItem('userId', json.userId)
       toast.success("User Created Successfully", {
         position: "top-right",
         autoClose: 3000,

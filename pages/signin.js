@@ -50,7 +50,7 @@ const Signin = () => {
   const handleSignIn = async (e) =>{
     e.preventDefault();
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_HOST}/api/auth/login`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'
@@ -61,6 +61,7 @@ const Signin = () => {
 
     if (json.success) {
       localStorage.setItem('token', json.authToken)
+      localStorage.setItem('userId', json.userId)
       toast.success("You are successfully logged in", {
         position: "top-right",
         autoClose: 3000,
@@ -70,7 +71,9 @@ const Signin = () => {
         draggable: true,
         progress: undefined,
       });
-      router.push('/posts')
+      setTimeout(() => {
+        router.push('/posts')
+      }, 5000);
     } else {
       toast.error("Invalid Credentials", {
         position: "top-right",
