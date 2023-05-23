@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
     },
     profilePic: {
         type: String,
-        default: "https://upload-file-demo.onrender.com/file/1684758461724-any-name-356-3563630_continue-marketing.png"
+        default: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
     },
     userName: {
         type: String,
