@@ -55,7 +55,7 @@ const Signin = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email: signInformData.email, password: signInformData.password }) // body datLink type must match "Content-Type" header
+      body: JSON.stringify({ email: signInformData.email, password: signInformData.password })
     });
     const json = await response.json()
 
