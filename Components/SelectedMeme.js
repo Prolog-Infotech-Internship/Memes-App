@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Center, Button, Image, Box } from "@chakra-ui/react";
 
-const MemeTempCard = ({ meme, handleClick, Setselectedtemplet }) => {
+const SelectedMeme = ({ meme}) => {
   return (
     <Center key={meme.id}>
       <Card
@@ -20,13 +20,13 @@ const MemeTempCard = ({ meme, handleClick, Setselectedtemplet }) => {
             {meme.name}
           </Box>
           {/* <Divider margin={3} /> */}
-          <Button variant="solid" colorScheme="teal" onClick={()=>{Setselectedtemplet(meme)}}>
+          {/* <Button variant="solid" colorScheme="teal" onClick={()=>{Setselectedtemplet(meme)}}>
             Edit
-          </Button>
+          </Button> */}
         </Box>
       </Card>
     </Center>
   );
 };
 
-export default MemeTempCard;
+export default SelectedMeme;

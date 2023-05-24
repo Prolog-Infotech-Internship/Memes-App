@@ -10,11 +10,12 @@ import MemeTempCard from "../Components/MemeTempCard";
 import axios from "axios";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
+import SelectedMeme from "../Components/SelectedMeme";
 
-const Creatememe = ({token}) => {
-  const [templet, settemplet] = useState([]);
+const Creatememe = ({ token }) => {
+  const [selectedtemplet, Setselectedtemplet] = useState(null);
   const [memes, setMemes] = useState([]);
-  const [signined, setsignined] = useState(true);
+  // const [selected, setselected] = useState(true);
   const router = useRouter();
   useEffect(() => {
     const fetchData = async () => {
@@ -27,16 +28,13 @@ const Creatememe = ({token}) => {
       }
     };
     if (!localStorage.getItem("token")) {
-      setsignined(false);
       router.push("/signin");
     } else {
-      setsignined(true);
     }
     fetchData();
-    
   }, []);
-  
-  console.log(token)
+
+  console.log(token);
   return (
     <div>
       <Stack
@@ -52,22 +50,18 @@ const Creatememe = ({token}) => {
           <title>Memes App</title>
         </Head>
         <ChakraProvider>
-          {/* {signined ? <Navbar2 /> : <Navbar />} */}
-          {/* <Heading marginTop={10} textAlign="Center" size="lg">
-            Memes
-          </Heading> */}
           <div>
-            {/* <Stack marginInline={20} marginTop={10}>
-              <Grid templateColumns="repeat(3, 1fr)" gap={3}>
-                {memes.map((meme) => (
-                  <MemeTempCard key={meme.id} data={meme} />
-                ))}
-              </Grid>
-            </Stack> */}
             <SimpleGrid columns={[1, 2, 3]} spacing={4}>
-              {memes.map((meme) => (
-                <MemeTempCard key={meme.id} meme={meme} />
-              ))}
+              {selectedtemplet && <SelectedMeme meme={selectedtemplet}/>}
+              {!selectedtemplet &&
+                memes.map((meme) => (
+                  <MemeTempCard
+                    key={meme.id}
+                    meme={meme}
+                    // handleClick={handleButtonClick}
+                    Setselectedtemplet={Setselectedtemplet}
+                  />
+                ))}
             </SimpleGrid>
           </div>
         </ChakraProvider>
