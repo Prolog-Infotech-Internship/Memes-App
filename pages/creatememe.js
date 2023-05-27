@@ -38,21 +38,23 @@ const Creatememe = ({ token }) => {
   return (
     <div>
       <Stack
-        p={10}
+        p="2"
         bg="#edf3f8"
         _dark={{
           bg: "#3e3e3e",
         }}
         w="full"
-        height="full"
+        minH="100vh"
       >
         <Head>
           <title>Memes App</title>
         </Head>
         <ChakraProvider>
           <div>
+            {selectedtemplet && (
+              <SelectedMeme meme={selectedtemplet} Setselectedtemplet={Setselectedtemplet} />
+            )}
             <SimpleGrid columns={[1, 2, 3]} spacing={4}>
-              {selectedtemplet && <SelectedMeme meme={selectedtemplet}/>}
               {!selectedtemplet &&
                 memes.map((meme) => (
                   <MemeTempCard
