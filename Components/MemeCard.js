@@ -99,7 +99,7 @@ const MemeCard = ({ meme, handleLike }) => {
                   handleLikebutton();
                 }}
               >
-                Like {meme.likes}
+                Like {meme.likes.length}
               </Button>
               <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
                 Comment

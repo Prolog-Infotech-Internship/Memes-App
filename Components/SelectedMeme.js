@@ -9,8 +9,10 @@ const SelectedMeme = ({ meme, Setselectedtemplet }) => {
     password: "Naitik@123",
     boxes: [],
   });
+
   console.log(meme);
   const GenerateMeme = () => {
+    
     let url = `https://api.imgflip.com/caption_image?template_id=${form.template_id}&username=${form.username}&password=${form.password}`;
     form.boxes.map((box, index) => {
       url += `&boxes[${index}][text]=${box.text}`;
@@ -65,6 +67,7 @@ const SelectedMeme = ({ meme, Setselectedtemplet }) => {
           {" "}
           Generate{" "}
         </Button>
+        
         <Button
           colorScheme='linkedin'
           size="lg"

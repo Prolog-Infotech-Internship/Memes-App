@@ -18,20 +18,20 @@ const Creatememe = ({ token }) => {
   // const [selected, setselected] = useState(true);
   const router = useRouter();
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://api.imgflip.com/get_memes");
-        setMemes(response.data.data.memes);
-        console.log(memes);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     if (!localStorage.getItem("token")) {
       router.push("/signin");
     } else {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get("https://api.imgflip.com/get_memes");
+          setMemes(response.data.data.memes);
+          console.log(memes);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchData();
     }
-    fetchData();
   }, []);
 
   console.log(token);

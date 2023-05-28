@@ -10,7 +10,7 @@ import Navbar2 from "../Components/Navbar2";
 import { useState } from "react";
 import axios from "axios";
 
-const Posts = () => {
+const Posts = ({ userid }) => {
   const [memes, setMemes] = useState([]);
   const [signined, setsignined] = useState(true);
   const router = useRouter();
@@ -31,7 +31,14 @@ const Posts = () => {
   };
   const handleLike = async (id) => {
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_HOST}/memes/${id}/like`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/likememe/${id}`, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userid: userid })
+      });
+      const json = await response.json()
       getMemes();
     } catch (error) {
       console.error(error);
@@ -42,12 +49,12 @@ const Posts = () => {
       <Head>
         <title>Memes App</title>
       </Head>
-    <ChakraProvider>
-    {/* {signined ? <Navbar2 /> : <Navbar />} */}
-    {/* <Card/> */}
-    {memes.reverse().map((meme) => (
+      <ChakraProvider>
+        {/* {signined ? <Navbar2 /> : <Navbar />} */}
+        {/* <Card/> */}
+        {memes.reverse().map((meme) => (
           <div key={meme._id}>
-            <MemeCard meme={meme} handleLike={handleLike}/>
+            <MemeCard meme={meme} handleLike={handleLike} />
             {/* <img src={meme.memeUrl} alt="meme" style={{ width: '300px' }} />
             <p>Name: {meme.name}</p>
             <p>Description: {meme.description}</p>
@@ -56,15 +63,15 @@ const Posts = () => {
             <button onClick={() => handleLike(meme._id)}>Like</button> */}
           </div>
         ))}
-    
-    {/* <MemeCard/>
+
+        {/* <MemeCard/>
     <MemeCard/>
     <MemeCard/>
     <MemeCard/> */}
-    <PostCard/>
-    {/* <PostCard/>
+        <PostCard />
+        {/* <PostCard/>
     <PostCard/> */}
-  </ChakraProvider>
+      </ChakraProvider>
     </div>
   );
 };
