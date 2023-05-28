@@ -17,16 +17,16 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Navbar2 from "../Components/Navbar2";
 import axios from "axios";
-import User from "../models/User";
-import mongoose from "mongoose";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Uploadmeme = ({username,userid}) => {
+const Uploadmeme = ({username,userid,createMemeUrl}) => {
   const [signined, setsignined] = useState(true);
   const router = useRouter();
   const [memes, setMemes] = useState([]);
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
-  const [memeUrl, setMemeUrl] = useState("");
+  const [memeUrl, setMemeUrl] = useState(createMemeUrl);
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -37,6 +37,7 @@ const Uploadmeme = ({username,userid}) => {
       setsignined(true);
     }
     getMemes();
+    console.log(createMemeUrl)
   }, []);
 
   const handleChange = (e) => {
@@ -84,6 +85,15 @@ const Uploadmeme = ({username,userid}) => {
       setMemeUrl("");
       setDescription("");
       getMemes();
+      toast.success("Meme Uploaded Successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -94,6 +104,17 @@ const Uploadmeme = ({username,userid}) => {
         <title>Memes App</title>
       </Head>
       <ChakraProvider>
+      <ToastContainer
+                position="top-right"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         {/* {signined ? <Navbar2 /> : <Navbar />} */}
         <Flex
           mt={0}

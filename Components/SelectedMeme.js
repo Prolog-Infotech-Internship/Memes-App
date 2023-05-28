@@ -1,26 +1,36 @@
 import React from "react";
 import { Card, Center, Button, Image, Box, Input } from "@chakra-ui/react";
 import { useState } from "react";
+import Uploadmeme from "../pages/uploadmeme";
+import { useRouter } from "next/router";
 
-const SelectedMeme = ({ meme, Setselectedtemplet }) => {
+const SelectedMeme = ({ meme, Setselectedtemplet, setCreateMemeUrl }) => {
   const [form, setform] = useState({
     template_id: meme.id,
     username: "NaitikPatel1",
     password: "Naitik@123",
     boxes: [],
   });
+  const router = useRouter();
+  const[upload,setUpload] = useState(false)
 
-  console.log(meme);
+  const handleUploadMeme = ()=>{
+    router.push('/uploadmeme')
+  }
+
   const GenerateMeme = () => {
-    
     let url = `https://api.imgflip.com/caption_image?template_id=${form.template_id}&username=${form.username}&password=${form.password}`;
     form.boxes.map((box, index) => {
       url += `&boxes[${index}][text]=${box.text}`;
     });
+
     fetch(url)
       .then((res) => res.json())
-      .then((data) => {
-        Setselectedtemplet({ ...meme, url: data.data.url });
+      .then(async (data) => {
+        await Setselectedtemplet({ ...meme, url: data.data.url });
+        console.log(data.data.url)
+        await setCreateMemeUrl(data.data.url)
+        await setUpload(true)
       });
   };
   return (
@@ -67,7 +77,18 @@ const SelectedMeme = ({ meme, Setselectedtemplet }) => {
           {" "}
           Generate{" "}
         </Button>
-        
+
+        <Button
+          colorScheme='teal'
+          marginTop="2"
+          marginBottom="2"
+          size="lg"
+          onClick={handleUploadMeme}
+        >
+          {" "}
+          Upload Meme{" "}
+        </Button>
+
         <Button
           colorScheme='linkedin'
           size="lg"

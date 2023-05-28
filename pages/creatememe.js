@@ -12,7 +12,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 import SelectedMeme from "../Components/SelectedMeme";
 
-const Creatememe = ({ token }) => {
+const Creatememe = ({ token, setCreateMemeUrl }) => {
   const [selectedtemplet, Setselectedtemplet] = useState(null);
   const [memes, setMemes] = useState([]);
   // const [selected, setselected] = useState(true);
@@ -52,7 +52,7 @@ const Creatememe = ({ token }) => {
         <ChakraProvider>
           <div>
             {selectedtemplet && (
-              <SelectedMeme meme={selectedtemplet} Setselectedtemplet={Setselectedtemplet} />
+              <SelectedMeme meme={selectedtemplet} Setselectedtemplet={Setselectedtemplet} setCreateMemeUrl={setCreateMemeUrl}  />
             )}
             <SimpleGrid columns={[1, 2, 3]} spacing={4}>
               {!selectedtemplet &&

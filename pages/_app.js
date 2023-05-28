@@ -14,6 +14,7 @@ export default function MyApp({ Component, pageProps }) {
   const [username, setUserName] = useState('')
   const [useremail, setUserEmail] = useState('')
   const [userprofilepic, setUserProfilePic] = useState('')
+  const [createMemeUrl, setCreateMemeUrl] = useState('')
 
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export default function MyApp({ Component, pageProps }) {
           <title>Memes App</title>
         </Head>
         {signined ? <Navbar2 position="sticky" /> : <Navbar />}
-        <Component token={token} userid={userid} username={username} useremail={useremail} userprofilepic={userprofilepic} {...pageProps} />
+        <Component createMemeUrl={createMemeUrl} setCreateMemeUrl={setCreateMemeUrl} token={token} userid={userid} username={username} useremail={useremail} userprofilepic={userprofilepic} {...pageProps} />
       </ChakraProvider>
     </>
   );
