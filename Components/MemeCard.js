@@ -18,6 +18,12 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
 import { BiChat } from "react-icons/bi";
 import { BiShare } from "react-icons/bi";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from "@chakra-ui/react";
 
 const MemeCard = ({ meme, handleLike }) => {
   const [Like, setLike] = useState(false);
@@ -59,27 +65,27 @@ const MemeCard = ({ meme, handleLike }) => {
                   />
 
                   <Box>
-                    
                     <Heading size="sm">{meme.name}</Heading>
                     <Text>{new Date(meme.date).toLocaleString()}</Text>
                   </Box>
                 </Flex>
-                <IconButton
-                  variant="ghost"
-                  colorScheme="gray"
-                  aria-label="See menu"
-                  icon={<BsThreeDotsVertical />}
-                />
+                <Menu>
+                  <MenuButton
+                    as={IconButton}
+                    aria-label="Options"
+                    icon={<BsThreeDotsVertical />}
+                    variant="outline"
+                  />
+                  <MenuList>
+                    <MenuItem command="⌘T">Report</MenuItem>
+                  </MenuList>
+                </Menu>
               </Flex>
             </CardHeader>
             <CardBody>
               <Text>{meme.description}</Text>
             </CardBody>
-            <Image
-              objectFit="cover"
-              src={meme.memeUrl}
-              alt="Chakra UI"
-            />
+            <Image objectFit="cover" src={meme.memeUrl} alt="Chakra UI" />
 
             <CardFooter
               justify="space-between"
