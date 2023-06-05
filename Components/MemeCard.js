@@ -119,9 +119,9 @@ const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
               <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
                 Comment
               </Button>
-              <Button flex="1" variant="ghost" leftIcon={<BiShare />}>
+              {/* <Button flex="1" variant="ghost" leftIcon={<BiShare />}>
                 Share
-              </Button>
+              </Button> */}
             </CardFooter>
           </Card>
         </Box>
