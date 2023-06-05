@@ -98,7 +98,7 @@ const Profile = () => {
 
   return (
     <Stack
-      // p="2"
+      p="5"
       bg="#edf3f8"
       _dark={{
         bg: "#3e3e3e",
