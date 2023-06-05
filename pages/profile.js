@@ -1,6 +1,13 @@
 import React from "react";
 import Navbar from "../Components/Navbar";
-import { ChakraProvider, Img, Flex, Box, Spacer} from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Img,
+  Flex,
+  Box,
+  Spacer,
+  Input,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -8,10 +15,22 @@ import Navbar2 from "../Components/Navbar2";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import User from "../models/User";
 import { Heading } from "@chakra-ui/react";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Stack,
+  StackDivider,
+  Text,
+} from "@chakra-ui/react";
 
 const Profile = ({ token, userprofilepic, username, useremail }) => {
   const [signined, setsignined] = useState(true);
   const router = useRouter();
+  const [Edit, setEdit] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
   useEffect(() => {
     console.log(userprofilepic);
     if (!localStorage.getItem("token")) {
@@ -27,31 +46,116 @@ const Profile = ({ token, userprofilepic, username, useremail }) => {
     localStorage.clear();
     router.push("/signin");
   };
+  const handleEdit = () => {
+    setEdit(!Edit);
+    console.log(Edit);
+  };
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(inputValue);
+    setEdit(!Edit);
+  };
   return (
-    <div>
+    <Stack
+      // p="2"
+      bg="#edf3f8"
+      _dark={{
+        bg: "#3e3e3e",
+      }}
+      w="full"
+      minH="100vh"
+    >
       <Head>
         <title>Memes App</title>
       </Head>
-      {/* {signined ? <Navbar2 /> : <Navbar />} */}
-      Profile
-      <Flex>
-        <Box p="4">
-          <Heading >My Profile</Heading>
-        </Box>
-        <Spacer />
-        <Box p="4" >
-        <Button colorScheme="blue" onClick={handleSignOut}>
-        Sign Out
-      </Button>
-        </Box>
-      </Flex>
-      <Img
-        src={userprofilepic}
-        alt="Image"
-        style={{ width: "70px", height: "70px" }}
-      />
-      
-    </div>
+      <Box marginInline="10" marginTop="5">
+        <Card shadow="2xl">
+          <CardHeader>
+            <Flex>
+              <Heading size="md" fontFamily="Montserrat,sans-serif">
+                My Profile
+              </Heading>
+              <Spacer />
+              <Button colorScheme="blue" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            </Flex>
+          </CardHeader>
+
+          <CardBody>
+            <Stack divider={<StackDivider />} spacing="4">
+              <Box>
+                <Heading size="xs" textTransform="uppercase">
+                  <Flex>
+                    <Img
+                      src={userprofilepic}
+                      alt="Image"
+                      style={{ width: "70px", height: "70px" }}
+                    />
+                    {Edit && (
+                      <>
+                        <Input
+                          value={inputValue}
+                          onChange={handleInputChange}
+                          marginBlock="auto"
+                          marginInline="5"
+                          placeholder="Enter Image link"
+                          size="md"
+                        />
+                        <Button
+                          marginTop="10px"
+                          margin="auto"
+                          colorScheme="pink"
+                          // type="submit"
+                          onClick={handleFormSubmit}
+                        >
+                          Submit
+                        </Button>
+                      </>
+                    )}
+                    {!Edit && (
+                      <Button
+                        marginTop="11px"
+                        margin="auto"
+                        colorScheme="pink"
+                        onClick={handleEdit}
+                      >
+                        Edit
+                      </Button>
+                    )}
+                  </Flex>
+                </Heading>
+                <Text pt="2" fontSize="sm">
+                  This Profile picture is set as defailt you can change if you
+                  wish
+                </Text>
+              </Box>
+              <Box>
+                <Heading size="xs" textTransform="uppercase">
+                  Name
+                </Heading>
+                <Text pt="2" fontSize="sm">
+                  {username}
+                </Text>
+              </Box>
+              <Box>
+                <Heading size="xs" textTransform="uppercase">
+                  Email
+                </Heading>
+                <Text pt="2" fontSize="sm">
+                  {useremail}
+                </Text>
+              </Box>
+            </Stack>
+          </CardBody>
+        </Card>
+      </Box>
+    </Stack>
   );
 };
 
