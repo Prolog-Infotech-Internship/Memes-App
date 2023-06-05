@@ -10,23 +10,24 @@ const AppProvider = ({ children }) => {
   const [username, setUserName] = useState('')
   const [useremail, setUserEmail] = useState('')
   const [userprofilepic, setUserProfilePic] = useState('')
+  const [userMemes, setUserMemes] = useState([])
 
   useEffect(() => {
     // Fetch the posts and update the state
 
-    if(localStorage.getItem("token")){
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/getmemes`);
-        setPosts(response.data.reverse());
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    };
+    if (localStorage.getItem("token")) {
+      const fetchPosts = async () => {
+        try {
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/getmemes`);
+          setPosts(response.data.reverse());
+        } catch (error) {
+          console.error('Error fetching posts:', error);
+        }
+      };
 
-    const getUser = async () => {
+      const getUser = async () => {
         const id = await localStorage.getItem("userId")
-        setUserId(id)
+        await setUserId(id)
         const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser/${id}`, {
           method: 'GET', // *GET, POST, PUT, DELETE, etc.
           headers: {
@@ -35,19 +36,35 @@ const AppProvider = ({ children }) => {
           },
         });
         const json = await response.json();
-    
+
         await setUserName(json.username)
         await setUserEmail(json.useremail)
         await setUserProfilePic(json.userpic)
       }
 
-    fetchPosts();
-    getUser();
+      const getUserMemes = async () => {
+        const id = await localStorage.getItem("userId")
+        await setUserId(id)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getusermeme/${id}`, {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        });
+        const json = await response.json();
+        setUserMemes(json.usermeme)
+      }
+
+      fetchPosts();
+      getUser();
+      getUserMemes();
     }
-  }, [router.asPath,posts]);
+
+
+  }, [router.asPath, posts]);
 
   return (
-    <AppContext.Provider value={{posts, userid, username, useremail, userprofilepic}}>
+    <AppContext.Provider value={{ posts, userid, username, useremail, userprofilepic, userMemes }}>
       {children}
     </AppContext.Provider>
   );

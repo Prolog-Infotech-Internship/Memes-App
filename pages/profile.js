@@ -28,9 +28,10 @@ import {
 } from "@chakra-ui/react";
 import { useContext } from 'react';
 import AppContext from "../AppContext";
+import MemeCard from "../Components/MemeCard";
 
 const Profile = () => {
-  const { userprofilepic, username, useremail, userid } = useContext(AppContext);
+  const { userprofilepic, username, useremail, userid, userMemes } = useContext(AppContext);
   const [signined, setsignined] = useState(true);
   const router = useRouter();
   const [Edit, setEdit] = useState(false);
@@ -44,6 +45,8 @@ const Profile = () => {
     } else {
       setsignined(true);
     }
+
+    console.log(userMemes)
   }, []);
 
   const handleSignOut = () => {
@@ -208,6 +211,19 @@ const Profile = () => {
               </Box>
             </Stack>
           </CardBody>
+          <Flex>
+          {userMemes.map((usermeme) => (
+          <div key={usermeme._id}>
+            <MemeCard meme={usermeme} liked={usermeme.likes.includes(userid) ? true:false} reported={usermeme.reports.includes(userid) ? true:false} />
+            {/* <img src={meme.memeUrl} alt="meme" style={{ width: '300px' }} />
+            <p>Name: {meme.name}</p>
+            <p>Description: {meme.description}</p>
+            <p>Date: {new Date(meme.date).toLocaleString()}</p>
+            <p>Likes: {meme.likes}</p>
+            <button onClick={() => handleLike(meme._id)}>Like</button> */}
+          </div>
+        ))}
+        </Flex>
         </Card>
       </Box>
     </Stack>

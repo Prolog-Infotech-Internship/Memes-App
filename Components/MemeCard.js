@@ -38,7 +38,7 @@ import AppContext from "../AppContext";
 import { HiDotsVertical } from 'react-icons/hi';
 
 const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
-  const { userid } = useContext(AppContext);
+  const [userProfilePic, setUserProfilePic] = useState(null);
 
 
   return (
@@ -70,8 +70,8 @@ const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
               <Flex spacing="4">
                 <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
                   <Avatar
-                    name="Segun Adebayo"
-                    src="https://bit.ly/sage-adebayo"
+                    name="Profile Pic"
+                    src={userProfilePic}
                   />
 
                   <Box>
@@ -80,14 +80,14 @@ const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
                   </Box>
                 </Flex>
                 <Menu>
-                {/* <MenuButton as={Button} leftIcon={<HiDotsVertical />}  variant="ghost" /> */}
-                <MenuButton
+                  {/* <MenuButton as={Button} leftIcon={<HiDotsVertical />}  variant="ghost" /> */}
+                  <MenuButton
                     as={IconButton}
                     icon={<BsThreeDotsVertical />}
                     variant="ghost"
                   />
                   <MenuList minWidth="150px">
-                    <MenuItem onClick={() => { !reported && handleReportMeme(meme._id);}}>{reported? "Reported" : "Report Meme"}</MenuItem>
+                    <MenuItem onClick={() => { !reported && handleReportMeme(meme._id); }}>{reported ? "Reported" : "Report Meme"}</MenuItem>
                   </MenuList>
                 </Menu>
               </Flex>
