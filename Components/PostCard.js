@@ -4,15 +4,15 @@ import { BiLike } from "react-icons/bi";
 import { BiChat } from "react-icons/bi";
 import { BiShare } from "react-icons/bi";
 
-const PostCard = () => {
+const PostCard = ({meme}) => {
   return (
     <div>
       <Flex
         mt={0}
-        bg="#edf3f8"
-        _dark={{
-          bg: "#3e3e3e",
-        }}
+        // bg="#edf3f8"
+        // _dark={{
+        //   bg: "#3e3e3e",
+        // }}
         p={25}
         w="full"
         height="full"
@@ -35,7 +35,7 @@ const PostCard = () => {
             w="full"
             h={64}
             fit="cover"
-            src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            src={meme.memeUrl}
             alt="Article"
           />
 
@@ -75,14 +75,11 @@ const PostCard = () => {
                   color: "gray.400",
                 }}
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Molestie parturient et sem ipsum volutpat vel. Natoque sem et
-                aliquam mauris egestas quam volutpat viverra. In pretium nec
-                senectus erat. Et malesuada lobortis.
+                {meme.description}
               </chakra.p>
             </Box>
 
-            <Box mt={4}>
+            {/* <Box mt={4}>
               <Flex alignItems="center">
                 <Flex alignItems="center">
                   <Image
@@ -114,7 +111,7 @@ const PostCard = () => {
                   21 SEP 2015
                 </chakra.span>
               </Flex>
-            </Box>
+            </Box> */}
             <CardFooter
           justify="space-between"
           flexWrap="wrap"
@@ -125,14 +122,14 @@ const PostCard = () => {
           }}
         >
           <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
-            Like
+            Like {meme.likes.length}
           </Button>
-          <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
+          {/* <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
             Comment
           </Button>
           <Button flex="1" variant="ghost" leftIcon={<BiShare />}>
             Share
-          </Button>
+          </Button> */}
         </CardFooter>
           </Box>
         </Box>

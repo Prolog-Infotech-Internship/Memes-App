@@ -1,14 +1,14 @@
 import React from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../Components/Navbar";
 import {
-  ChakraProvider,
   Img,
   Flex,
   Box,
   Spacer,
   Input,
+  SimpleGrid
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -21,17 +21,17 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Stack,
   StackDivider,
   Text,
 } from "@chakra-ui/react";
-import { useContext } from 'react';
+import { useContext } from "react";
 import AppContext from "../AppContext";
-import MemeCard from "../Components/MemeCard";
+import PostCard from "../Components/PostCard";
 
 const Profile = () => {
-  const { userprofilepic, username, useremail, userid, userMemes } = useContext(AppContext);
+  const { userprofilepic, username, useremail, userid, userMemes } =
+    useContext(AppContext);
   const [signined, setsignined] = useState(true);
   const router = useRouter();
   const [Edit, setEdit] = useState(false);
@@ -46,7 +46,7 @@ const Profile = () => {
       setsignined(true);
     }
 
-    console.log(userMemes)
+    console.log(userMemes);
   }, []);
 
   const handleSignOut = () => {
@@ -55,7 +55,7 @@ const Profile = () => {
   };
   const handleEdit = () => {
     setEdit(!Edit);
-    setInputValue('')
+    setInputValue("");
   };
 
   const handleInputChange = (event) => {
@@ -65,16 +65,19 @@ const Profile = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateuser/${userid}`, {
-      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ userprofile : inputValue })
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/updateuser/${userid}`,
+      {
+        method: "PUT", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userprofile: inputValue }),
+      }
+    );
     const json = await response.json();
 
-    if(json.success){
+    if (json.success) {
       toast.success("User Profile Picture Update Successfully", {
         position: "top-right",
         autoClose: 3000,
@@ -85,8 +88,8 @@ const Profile = () => {
         progress: undefined,
       });
       setEdit(!Edit);
-      setInputValue('')
-    }else{
+      setInputValue("");
+    } else {
       toast.error("Error Occured", {
         position: "top-right",
         autoClose: 3000,
@@ -113,16 +116,16 @@ const Profile = () => {
         <title>Memes App</title>
       </Head>
       <ToastContainer
-                position="top-right"
-                autoClose={4000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Box marginInline="10" marginTop="5">
         <Card shadow="2xl">
           <CardHeader>
@@ -199,7 +202,6 @@ const Profile = () => {
                 <Text pt="2" fontSize="sm">
                   {username}
                 </Text>
-
               </Box>
               <Box>
                 <Heading size="xs" textTransform="uppercase">
@@ -211,19 +213,17 @@ const Profile = () => {
               </Box>
             </Stack>
           </CardBody>
-          <Flex>
-          {userMemes.map((usermeme) => (
-          <div key={usermeme._id}>
-            <MemeCard meme={usermeme} liked={usermeme.likes.includes(userid) ? true:false} reported={usermeme.reports.includes(userid) ? true:false} />
-            {/* <img src={meme.memeUrl} alt="meme" style={{ width: '300px' }} />
-            <p>Name: {meme.name}</p>
-            <p>Description: {meme.description}</p>
-            <p>Date: {new Date(meme.date).toLocaleString()}</p>
-            <p>Likes: {meme.likes}</p>
-            <button onClick={() => handleLike(meme._id)}>Like</button> */}
-          </div>
-        ))}
-        </Flex>
+          <SimpleGrid columns={[1, 2, 3, 4]} spacing={4}>
+            {userMemes.map((usermeme) => (
+              <div key={usermeme._id}>
+                  <PostCard
+                    meme={usermeme}
+                    liked={usermeme.likes.includes(userid) ? true : false}
+                    reported={usermeme.reports.includes(userid) ? true : false}
+                  />
+              </div>
+            ))}
+          </SimpleGrid>
         </Card>
       </Box>
     </Stack>
