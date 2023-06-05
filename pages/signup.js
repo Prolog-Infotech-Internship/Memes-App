@@ -70,7 +70,6 @@ const Signup = () => {
 
     const json = await response.json()
 
-    console.log(json)
 
     if (json.success) {
       localStorage.setItem('token', json.authToken)

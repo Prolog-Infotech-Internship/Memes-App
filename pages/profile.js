@@ -1,4 +1,6 @@
 import React from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "../Components/Navbar";
 import {
   ChakraProvider,
@@ -24,15 +26,17 @@ import {
   StackDivider,
   Text,
 } from "@chakra-ui/react";
+import { useContext } from 'react';
+import AppContext from "../AppContext";
 
-const Profile = ({ token, userprofilepic, username, useremail }) => {
+const Profile = () => {
+  const { userprofilepic, username, useremail, userid } = useContext(AppContext);
   const [signined, setsignined] = useState(true);
   const router = useRouter();
   const [Edit, setEdit] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    console.log(userprofilepic);
     if (!localStorage.getItem("token")) {
       setsignined(false);
 
@@ -48,18 +52,50 @@ const Profile = ({ token, userprofilepic, username, useremail }) => {
   };
   const handleEdit = () => {
     setEdit(!Edit);
-    console.log(Edit);
+    setInputValue('')
   };
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(inputValue);
-    setEdit(!Edit);
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateuser/${userid}`, {
+      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userprofile : inputValue })
+    });
+    const json = await response.json();
+
+    if(json.success){
+      toast.success("User Profile Picture Update Successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setEdit(!Edit);
+      setInputValue('')
+    }else{
+      toast.error("Error Occured", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
+
   return (
     <Stack
       // p="2"
@@ -73,6 +109,17 @@ const Profile = ({ token, userprofilepic, username, useremail }) => {
       <Head>
         <title>Memes App</title>
       </Head>
+      <ToastContainer
+                position="top-right"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
       <Box marginInline="10" marginTop="5">
         <Card shadow="2xl">
           <CardHeader>
@@ -81,7 +128,7 @@ const Profile = ({ token, userprofilepic, username, useremail }) => {
                 My Profile
               </Heading>
               <Spacer />
-              <Button colorScheme="blue" onClick={handleSignOut}>
+              <Button colorScheme="red" onClick={handleSignOut}>
                 Sign Out
               </Button>
             </Flex>
@@ -109,12 +156,19 @@ const Profile = ({ token, userprofilepic, username, useremail }) => {
                         />
                         <Button
                           marginTop="10px"
-                          margin="auto"
-                          colorScheme="pink"
+                          colorScheme="green"
                           // type="submit"
                           onClick={handleFormSubmit}
                         >
                           Submit
+                        </Button>
+                        <Button
+                          marginTop="10px"
+                          marginLeft="10px"
+                          colorScheme="red"
+                          onClick={handleEdit}
+                        >
+                          Cancel
                         </Button>
                       </>
                     )}
@@ -142,6 +196,7 @@ const Profile = ({ token, userprofilepic, username, useremail }) => {
                 <Text pt="2" fontSize="sm">
                   {username}
                 </Text>
+
               </Box>
               <Box>
                 <Heading size="xs" textTransform="uppercase">

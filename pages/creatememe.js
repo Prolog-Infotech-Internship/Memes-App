@@ -25,7 +25,6 @@ const Creatememe = ({ token, setCreateMemeUrl }) => {
         try {
           const response = await axios.get("https://api.imgflip.com/get_memes");
           setMemes(response.data.data.memes);
-          console.log(memes);
         } catch (error) {
           console.error(error);
         }
@@ -34,7 +33,6 @@ const Creatememe = ({ token, setCreateMemeUrl }) => {
     }
   }, []);
 
-  console.log(token);
   return (
     <div>
       <Stack

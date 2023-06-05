@@ -28,7 +28,6 @@ const SelectedMeme = ({ meme, Setselectedtemplet, setCreateMemeUrl }) => {
       .then((res) => res.json())
       .then(async (data) => {
         await Setselectedtemplet({ ...meme, url: data.data.url });
-        console.log(data.data.url)
         await setCreateMemeUrl(data.data.url)
         await setUpload(true)
       });

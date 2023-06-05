@@ -3,21 +3,18 @@ import User from "../../../models/User";
 
 const handler = async (req, res) => {
 
-    if (req.method == 'GET') {
+    if (req.method == 'PUT') {
 
         let success = true;
         
         try {
             const { id } = req.query
-        
-            let user = await User.findOne({userId: id})
-
-            if(!user){
-                success = false
-                res.status(401).json({ success, error: "User Not Exist" });
-            }
-            res.status(200).json({success,useremail: user.email, username: user.userName, userpic: user.profilePic})
             
+            let user = await User.findOneAndUpdate({userId: id},{profilePic: req.body.userprofile})
+            
+            let updateduser = await User.findOne({userId: id})
+
+            res.status(200).json({success: true,updateduser})
         }
         catch (error) {
             success = false

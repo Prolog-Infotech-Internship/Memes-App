@@ -26,6 +26,9 @@ const MemeSchema = new mongoose.Schema({
     likes: {
         type: Array
     },
+    reports: {
+        type: Array
+    },
     date: {
         type: Date,
         default: Date.now

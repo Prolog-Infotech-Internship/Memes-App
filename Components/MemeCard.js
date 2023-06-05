@@ -13,6 +13,15 @@ import {
   CardBody,
   CardFooter,
 } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
 import { useState, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
@@ -24,13 +33,14 @@ import {
   MenuList,
   MenuItem,
 } from "@chakra-ui/react";
+import { useContext } from 'react';
+import AppContext from "../AppContext";
+import { HiDotsVertical } from 'react-icons/hi';
 
-const MemeCard = ({ meme, handleLike }) => {
-  const [Like, setLike] = useState(false);
-  const handleLikebutton = () => {
-    setLike(!Like);
-    console.log({ Like });
-  };
+const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
+  const { userid } = useContext(AppContext);
+
+
   return (
     <div>
       <Flex
@@ -70,14 +80,14 @@ const MemeCard = ({ meme, handleLike }) => {
                   </Box>
                 </Flex>
                 <Menu>
-                  <MenuButton
+                {/* <MenuButton as={Button} leftIcon={<HiDotsVertical />}  variant="ghost" /> */}
+                <MenuButton
                     as={IconButton}
-                    aria-label="Options"
                     icon={<BsThreeDotsVertical />}
-                    variant="outline"
+                    variant="ghost"
                   />
-                  <MenuList>
-                    <MenuItem command="⌘T">Report</MenuItem>
+                  <MenuList minWidth="150px">
+                    <MenuItem onClick={() => { !reported && handleReportMeme(meme._id);}}>{reported? "Reported" : "Report Meme"}</MenuItem>
                   </MenuList>
                 </Menu>
               </Flex>
@@ -99,10 +109,9 @@ const MemeCard = ({ meme, handleLike }) => {
               <Button
                 flex="1"
                 variant="ghost"
-                leftIcon={Like ? <FaThumbsUp /> : <FaRegThumbsUp />}
+                leftIcon={liked ? <FaThumbsUp /> : <FaRegThumbsUp />}
                 onClick={() => {
                   handleLike(meme._id);
-                  handleLikebutton();
                 }}
               >
                 Like {meme.likes.length}

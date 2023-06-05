@@ -19,8 +19,11 @@ import Navbar2 from "../Components/Navbar2";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from 'react';
+import AppContext from "../AppContext";
 
-const Uploadmeme = ({username,userid,createMemeUrl}) => {
+const Uploadmeme = ({createMemeUrl}) => {
+  const {username, userid} = useContext(AppContext);
   const [signined, setsignined] = useState(true);
   const router = useRouter();
   const [memes, setMemes] = useState([]);
@@ -37,7 +40,6 @@ const Uploadmeme = ({username,userid,createMemeUrl}) => {
       setsignined(true);
     }
     getMemes();
-    console.log(createMemeUrl)
   }, []);
 
   const handleChange = (e) => {
