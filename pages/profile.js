@@ -68,7 +68,7 @@ const Profile = ({ token, userprofilepic, username, useremail }) => {
         bg: "#3e3e3e",
       }}
       w="full"
-      minH="100%"
+      minH="100vh"
     >
       <Head>
         <title>Memes App</title>
