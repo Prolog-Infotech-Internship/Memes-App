@@ -33,13 +33,28 @@ import {
   MenuList,
   MenuItem,
 } from "@chakra-ui/react";
-import { useContext } from 'react';
-import AppContext from "../AppContext";
-import { HiDotsVertical } from 'react-icons/hi';
 
 const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
   const [userProfilePic, setUserProfilePic] = useState(null);
 
+  useEffect(() => {
+    const fetchUserProfilePic = async () => {
+      if (!meme.userId) {
+        return; // Handle the case when userId is not available
+      }
+      const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser/${meme.userId}`, {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const json = await response.json();
+
+      setUserProfilePic(json.userpic)
+    }
+
+    fetchUserProfilePic();
+  }, [meme.userId])
 
   return (
     <div>
