@@ -11,6 +11,8 @@ export default function Home() {
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       router.push('/signin')
+    }else{
+      router.push('/posts')
     }
     // if (localStorage.getItem("token")) {
     //   router.push('/posts')
