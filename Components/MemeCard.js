@@ -110,7 +110,7 @@ const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
             <CardBody>
               <Text>{meme.description}</Text>
             </CardBody>
-            <Box width="500px" height="400px">
+            <Box width={{ md: '400px', lg: '400px' }}>
               <Image
                 src={meme.memeUrl}
                 alt="Chakra UI"
